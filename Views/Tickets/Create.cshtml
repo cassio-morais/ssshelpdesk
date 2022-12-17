@@ -1,0 +1,54 @@
+﻿@model SuperSuperSimpleHelpDesk.Models.Ticket.CreateTicketViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Abra um chamado</h1>
+
+<h4>Ticket</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Tickets" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                <label class="control-label">Título</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Mesagem descritiva do chamado</label>
+                <textarea asp-for="Message" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Seu nome (ou do responsável por esse chamado)</label>
+                <input asp-for="Owner" class="form-control" />
+                <span asp-validation-for="Owner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Local do chamado (loja, departamento, empresa...)</label>
+                <input asp-for="Place" maxlength="15" class="form-control" />
+                <span asp-validation-for="Place" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label class="control-label">Telefone de contato</label>
+                <input asp-for="AssociatedPhone" maxlength="15" class="form-control" onkeyup="handlePhone(event)" />
+                <span asp-validation-for="AssociatedPhone" class="text-danger"></span>
+            </div>
+             <br />
+            <div>
+                 <div class="form-group">
+                     <input type="submit" value="Enviar" class="btn btn-primary" />
+                 </div>
+            </div>
+           
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

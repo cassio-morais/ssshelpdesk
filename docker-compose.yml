@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+    web:
+        build: .
+        image: sss-help-desk:1.0.0
+        container_name: sss-helpdesk
+        ports: 
+        - "8080:80" 
+        networks:
+            - backend-network
+        depends_on:
+            - db
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - CONNECTION_STRING=Data Source=db;Initial Catalog=3sHelpDeskDB;User Id=sa;Password=Test@123;Trusted_Connection=false
+    db:
+        image: "mcr.microsoft.com/mssql/server:2019-latest"
+        container_name: sql-server-express-sss-helpdesk
+        environment:
+            SA_PASSWORD: "Test@123"
+            ACCEPT_EULA: "Y"
+            MSSQL_PID : "Express"
+        ports : 
+            - 51433:1433
+        networks:
+            - backend-network
+
+networks:
+    backend-network:
+        driver: bridge
+         

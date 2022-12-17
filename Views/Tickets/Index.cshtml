@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SuperSuperSimpleHelpDesk.Models.Ticket.ListTicketViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Meus Chamados</h1>
+
+<p>
+    <a asp-action="Create">Abrir um chamado</a>
+</p>
+<table class="table" id="ticketstlist">
+    <thead>
+        <tr>
+            <th>
+                Título
+            </th>
+             <th>
+                Responsável
+            </th>
+            <th>
+                Local
+            </th>
+             <th>
+                Telefone associado
+            </th>
+              <th>
+                Criado em:
+            </th>
+              <th>
+                Última atualização em:
+            </th>
+            <th>
+                Status
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Place)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssociatedPhone)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+               <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar o chamado</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
