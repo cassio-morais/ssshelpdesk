@@ -23,6 +23,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONNECTION_STRING": "Server=(localdb)\\mssqllocaldb;Database=SuperSuperSimpleHelpDesk;Trusted_Connection=True;MultipleActiveResultSets=true"
       }
     },
     "Docker": {

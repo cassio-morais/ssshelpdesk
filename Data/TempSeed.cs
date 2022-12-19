@@ -4,7 +4,7 @@ namespace SuperSuperSimpleHelpDesk.Data
 {
     public static class TempSeed
     {
-        public static List<Ticket> CreateTickets() 
+        public static List<Ticket> CreateTickets()
         {
             var tickets = new List<Ticket>()
             {

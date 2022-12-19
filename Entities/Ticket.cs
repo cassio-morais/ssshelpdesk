@@ -10,7 +10,7 @@ namespace SuperSuperSimpleHelpDesk.Entities
         public DateTimeOffset? UpdatedAt { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
-        public TicketStatus? Status { get; set; }
+        public TicketStatus Status { get; set; }
         public string Owner { get; set; }
         public string Place { get; set; }
         public string AssociatedPhone { get; set; }

@@ -3,7 +3,9 @@ using SuperSuperSimpleHelpDesk.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new InvalidOperationException("Connection string 'DataContext' not found.")));
+    options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING")
+    ?? builder.Configuration.GetConnectionString("DataContext") // apenas pra facilitar o comando add-migration (arrancar daqui depois)
+    ?? throw new InvalidOperationException("Connection string 'DataContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -41,9 +43,11 @@ void EnsureDatabaseCreated(WebApplication app)
     if (serviceScopeFactory is null) throw new NullReferenceException();
 
     using var serviceScope = serviceScopeFactory.CreateScope();
-    var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
-    context.Database.Migrate();
-    context.Ticket.AddRange(TempSeed.CreateTickets());
-    context.SaveChanges();
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
+
+    dbContext.Database.Migrate();
+    dbContext.Ticket.AddRange(TempSeed.CreateTickets());
+    dbContext.SaveChanges();
+
     serviceScope.Dispose();
 }
